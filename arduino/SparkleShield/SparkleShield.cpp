@@ -110,6 +110,10 @@ uint16_t SparkleShield::XYsafe( uint8_t x, uint8_t y) {
   return XY(x, y);
 }
 
+void SparkleShield::set(uint8_t x, uint8_t y, CRGB color) {
+  SparkleShield::leds[SparkleShield::XYsafe(x, y)] = color;
+}
+
 void SparkleShield::set(uint8_t x, uint8_t y, CHSV color) {
   SparkleShield::leds[SparkleShield::XYsafe(x, y)] = color;
 }

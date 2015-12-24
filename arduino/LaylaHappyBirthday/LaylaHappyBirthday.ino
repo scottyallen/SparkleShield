@@ -13,7 +13,8 @@ void loop() {
   uint32_t ms = millis();
   int length = strlen(MESSAGE) * 6 + 20;
   if (ms / 100 <= length) {
-    DrawTextOneFrame(ms / 100 % length);
+    sparkle.clear(BACKGROUND_COLOR);
+    sparkle.scroll_text(MESSAGE, TEXT_COLOR);
   } else {
     int32_t yHueDelta32 = ((int32_t)cos16(ms * (27 / 1)) * (350 / kMatrixWidth));
     int32_t xHueDelta32 = ((int32_t)cos16(ms * (39 / 1)) * (310 / kMatrixHeight));
@@ -24,11 +25,6 @@ void loop() {
 
 void setup() {
   sparkle.setBrightness(BRIGHTNESS);
-}
-
-void DrawTextOneFrame(int xOffset) {
-  sparkle.clear(BACKGROUND_COLOR);
-  sparkle.draw_text(10 - xOffset, 0, MESSAGE, TEXT_COLOR);
 }
 
 void DrawRainbowOneFrame(byte startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {

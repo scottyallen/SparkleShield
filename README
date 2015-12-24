@@ -1,0 +1,9 @@
+The Sparkle Shield is an add-on shield for Arduino that has 70 individually
+programmable full color LEDs arranged in a 7x10 matrix. It comes as an
+unassembled kit that you can solder yourself with a few basic tools.  The
+Sparkle Shield comes with a bunch of cool animations, but it's also easy to
+program your own using the free Arduino development kit (compatible with
+PC/Mac/Linux) and the Sparkle Shield Arduino library.
+
+For more information and assembly and programming instructions, go to
+http://sparkleshield.com.

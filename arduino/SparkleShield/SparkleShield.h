@@ -1,5 +1,5 @@
 /*
-  SparkleShield.cpp - Library for controlling the Sparkle Shield LED display.
+  SparkleShield.h - Library for controlling the Sparkle Shield LED display.
   Created by Scotty Allen, December 18, 2015.
   Released under a GPL v2 license.
 */

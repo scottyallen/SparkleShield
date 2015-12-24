@@ -1,1 +1,6 @@
 SparkleShield	KEYWORD1
+show	KEYWORD2
+set	KEYWORD2
+setBrightness	KEYWORD2
+XY	KEYWORD2
+XYsafe	KEYWORD2

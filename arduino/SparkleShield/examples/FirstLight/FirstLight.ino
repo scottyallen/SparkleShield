@@ -1,3 +1,9 @@
+/*
+  FirstLight.ino - Library for controlling the Sparkle Shield LED display.
+  Created by Scotty Allen, December 24, 2015.
+  Released under a GPL v2 license.
+*/
+
 // Light up each LED, one after another, starting at LED1, ending at LED70.
 
 #include <FastLED.h>

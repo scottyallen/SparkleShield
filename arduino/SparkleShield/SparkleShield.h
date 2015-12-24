@@ -26,6 +26,10 @@ class SparkleShield {
     uint16_t XYsafe( uint8_t x, uint8_t y);
     void setBrightness(uint8_t brightness);
     void set(uint8_t x, uint8_t y, CHSV color);
+    void draw_text(int x, int y, char *text, CHSV color);
+    void draw_sprite(int xOffset, int yOffset, unsigned char* sprite, int length, CHSV color);
+    void clear();
+    void clear(CHSV color);
 
     static CRGB leds_plus_safety_pixel[];
     static CRGB* leds;

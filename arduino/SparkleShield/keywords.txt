@@ -4,3 +4,6 @@ set	KEYWORD2
 setBrightness	KEYWORD2
 XY	KEYWORD2
 XYsafe	KEYWORD2
+draw_text KEYWORD2
+draw_sprite KEYWORD2
+draw_clear KEYWORD2

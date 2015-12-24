@@ -246,3 +246,9 @@ void SparkleShield::clear(CHSV color) {
     }
   }
 }
+
+void SparkleShield::scroll_text(char *text, CHSV color) {
+  int length = strlen(text) * 6 + 20;
+  int xOffset = millis() / 100 % length;
+  SparkleShield::draw_text(10 - xOffset, 0, text, color);
+}

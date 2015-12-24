@@ -10,16 +10,10 @@
 SparkleShield sparkle;
 
 void loop() {
-  int length = strlen(MESSAGE) * 6 + 20;
-  DrawTextOneFrame(millis() / 100 % length);
-  sparkle.show();
+  sparkle.clear(BACKGROUND_COLOR);
+  sparkle.scroll_text(MESSAGE, TEXT_COLOR);
 }
 
 void setup() {
   sparkle.setBrightness(BRIGHTNESS);
-}
-
-void DrawTextOneFrame(int xOffset) {
-  sparkle.clear(BACKGROUND_COLOR);
-  sparkle.draw_text(10 - xOffset, 0, MESSAGE, TEXT_COLOR);
 }

@@ -12,6 +12,7 @@ SparkleShield sparkle;
 void loop() {
   sparkle.clear(BACKGROUND_COLOR);
   sparkle.scroll_text(MESSAGE, TEXT_COLOR);
+  sparkle.show();
 }
 
 void setup() {

@@ -1,6 +1,6 @@
 #include <FastLED.h>
 #include <SparkleShield.h>
-#include <Math.h>
+#include <math.h>
 
 #define BRIGHTNESS 64 
 

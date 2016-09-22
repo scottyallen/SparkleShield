@@ -6,27 +6,9 @@
 
 SparkleShield sparkle;
 
-void loop() {
-  DrawOneFrame(millis());
-  sparkle.show();
-}
-
-void setup() {
-  sparkle.setBrightness(BRIGHTNESS);
-}
-
-void DrawOneFrame(unsigned long ms) {
-  sparkle.clear();
-  drawMatrixColumn(ms, 0, 14.0, 300.0);
-  drawMatrixColumn(ms, 1, 14.0, 400.0);
-  drawMatrixColumn(ms, 2, 14.0, 200.0);
-  drawMatrixColumn(ms, 3, 14.0, 500.0);
-  drawMatrixColumn(ms, 4, 14.0, 375.0);
-  drawMatrixColumn(ms, 5, 14.0, 600.0);
-  drawMatrixColumn(ms, 6, 14.0, 342.0);
-  drawMatrixColumn(ms, 7, 14.0, 250.0);
-  drawMatrixColumn(ms, 8, 14.0, 475.0);
-  drawMatrixColumn(ms, 9, 14.0, 215.0);
+void drawRasterDot(float x, float y, CHSV color) {
+  sparkle.set(int(x), floor(y), color % (abs(1 - (y - floor(y))) * 255));
+  sparkle.set(int(x), ceil(y), color % (abs(1 - (ceil(y) - y)) * 255));
 }
 
 // x - which column?
@@ -51,8 +33,26 @@ void drawMatrixColumn(unsigned long ms, int x, float animation_cycle, float spee
   }
 }
 
-void drawRasterDot(float x, float y, CHSV color) {
-  sparkle.set(int(x), floor(y), color % (abs(1 - (y - floor(y))) * 255));
-  sparkle.set(int(x), ceil(y), color % (abs(1 - (ceil(y) - y)) * 255));
+void DrawOneFrame(unsigned long ms) {
+  sparkle.clear();
+  drawMatrixColumn(ms, 0, 14.0, 300.0);
+  drawMatrixColumn(ms, 1, 14.0, 400.0);
+  drawMatrixColumn(ms, 2, 14.0, 200.0);
+  drawMatrixColumn(ms, 3, 14.0, 500.0);
+  drawMatrixColumn(ms, 4, 14.0, 375.0);
+  drawMatrixColumn(ms, 5, 14.0, 600.0);
+  drawMatrixColumn(ms, 6, 14.0, 342.0);
+  drawMatrixColumn(ms, 7, 14.0, 250.0);
+  drawMatrixColumn(ms, 8, 14.0, 475.0);
+  drawMatrixColumn(ms, 9, 14.0, 215.0);
 }
 
+
+void loop() {
+  DrawOneFrame(millis());
+  sparkle.show();
+}
+
+void setup() {
+  sparkle.setBrightness(BRIGHTNESS);
+}

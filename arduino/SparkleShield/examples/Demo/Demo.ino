@@ -23,35 +23,6 @@ float colorStretch = 0.02;    // Higher numbers will produce tighter color bands
 #define BACKGROUND_COLOR CHSV(128, 255, 200)
 
 
-void setup(){
-  toggleState = EEPROM.read(EEPROMaddress);
-  upToggleState();
-
-  sparkle.setBrightness(BRIGHTNESS);
-}
-
-void loop(){
-  switch(toggleState){
-  case 0:
-    rainbow();
-    break;
-  case 1:
-    plasma();
-    break;
-  case 2:
-    matrix();
-    break;
-  case 3:
-    text();
-    break;
-  case 4:
-    helix();
-    break;
-  default:
-    EEPROM.write(EEPROMaddress, 0);
-  }
-}
-
 //Ups or resets the state counter
 void upToggleState(){
   toggleState++;
@@ -60,14 +31,6 @@ void upToggleState(){
 }
 
 // Rainbow
-
-void rainbow() {
-  uint32_t ms = millis();
-  int32_t yHueDelta32 = ((int32_t)cos16(ms * (27 / 1) ) * (350 / kMatrixWidth));
-  int32_t xHueDelta32 = ((int32_t)cos16(ms * (39 / 1) ) * (310 / kMatrixHeight));
-  RainbowDrawOneFrame(ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
-  sparkle.show();
-}
 
 void RainbowDrawOneFrame(byte startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
   byte lineStartHue = startHue8;
@@ -79,6 +42,14 @@ void RainbowDrawOneFrame(byte startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
       sparkle.set(x, y, CHSV(pixelHue, 255, 255));
     }
   }
+}
+
+void rainbow() {
+  uint32_t ms = millis();
+  int32_t yHueDelta32 = ((int32_t)cos16(ms * (27 / 1) ) * (350 / kMatrixWidth));
+  int32_t xHueDelta32 = ((int32_t)cos16(ms * (39 / 1) ) * (310 / kMatrixHeight));
+  RainbowDrawOneFrame(ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
+  sparkle.show();
 }
 
 // Plasma
@@ -141,23 +112,9 @@ void plasma() {
 
 // Matrix
 
-void matrix() {
-  MatrixDrawOneFrame(millis());
-  sparkle.show();
-}
-
-void MatrixDrawOneFrame(unsigned long ms) {
-  sparkle.clear();
-  drawMatrixColumn(ms, 0, 14.0, 300.0);
-  drawMatrixColumn(ms, 1, 14.0, 400.0);
-  drawMatrixColumn(ms, 2, 14.0, 200.0);
-  drawMatrixColumn(ms, 3, 14.0, 500.0);
-  drawMatrixColumn(ms, 4, 14.0, 375.0);
-  drawMatrixColumn(ms, 5, 14.0, 600.0);
-  drawMatrixColumn(ms, 6, 14.0, 342.0);
-  drawMatrixColumn(ms, 7, 14.0, 250.0);
-  drawMatrixColumn(ms, 8, 14.0, 475.0);
-  drawMatrixColumn(ms, 9, 14.0, 215.0);
+void drawRasterDot(float x, float y, CHSV color) {
+  sparkle.set(int(x), floor(y), color % (abs(1 - (y - floor(y))) * 255));
+  sparkle.set(int(x), ceil(y), color % (abs(1 - (ceil(y) - y)) * 255));
 }
 
 // x - which column?
@@ -182,10 +139,26 @@ void drawMatrixColumn(unsigned long ms, int x, float animation_cycle, float spee
   }
 }
 
-void drawRasterDot(float x, float y, CHSV color) {
-  sparkle.set(int(x), floor(y), color % (abs(1 - (y - floor(y))) * 255));
-  sparkle.set(int(x), ceil(y), color % (abs(1 - (ceil(y) - y)) * 255));
+void MatrixDrawOneFrame(unsigned long ms) {
+  sparkle.clear();
+  drawMatrixColumn(ms, 0, 14.0, 300.0);
+  drawMatrixColumn(ms, 1, 14.0, 400.0);
+  drawMatrixColumn(ms, 2, 14.0, 200.0);
+  drawMatrixColumn(ms, 3, 14.0, 500.0);
+  drawMatrixColumn(ms, 4, 14.0, 375.0);
+  drawMatrixColumn(ms, 5, 14.0, 600.0);
+  drawMatrixColumn(ms, 6, 14.0, 342.0);
+  drawMatrixColumn(ms, 7, 14.0, 250.0);
+  drawMatrixColumn(ms, 8, 14.0, 475.0);
+  drawMatrixColumn(ms, 9, 14.0, 215.0);
 }
+
+
+void matrix() {
+  MatrixDrawOneFrame(millis());
+  sparkle.show();
+}
+
 
 // Text scrolling
 
@@ -306,3 +279,33 @@ void helix() {
   
   sparkle.show();
 }
+
+void setup(){
+  toggleState = EEPROM.read(EEPROMaddress);
+  upToggleState();
+
+  sparkle.setBrightness(BRIGHTNESS);
+}
+
+void loop(){
+  switch(toggleState){
+  case 0:
+    rainbow();
+    break;
+  case 1:
+    plasma();
+    break;
+  case 2:
+    matrix();
+    break;
+  case 3:
+    text();
+    break;
+  case 4:
+    helix();
+    break;
+  default:
+    EEPROM.write(EEPROMaddress, 0);
+  }
+}
+
